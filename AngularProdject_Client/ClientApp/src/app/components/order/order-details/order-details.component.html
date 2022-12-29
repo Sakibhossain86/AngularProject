@@ -1,0 +1,65 @@
+<mat-card class="mat-elevation-z3">
+    <mat-card-header>
+        
+           <img mat-card-avatar src="../../../../assets/bill-svgrepo-com.svg"/>
+        
+        <mat-card-title>Orders Details</mat-card-title>
+        <mat-card-subtitle>Order and Items</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div *ngIf="order" class="wrap">
+            <div class="row">
+                <mat-label>Order Date</mat-label>
+                <div>{{order.orderDate| date: 'yyyy-MMM-dd'}}</div>
+            </div>
+            <div class="row">
+                <mat-label>Customer</mat-label>
+                <div>{{order.customer?.customerName}}</div>
+            </div>
+            <div class="row">
+                <mat-label>Address</mat-label>
+                <div>{{order.customer?.address}}</div>
+            </div>
+            <div class="row">
+                <mat-label>Order Status</mat-label>
+                <div>{{getStatusName(order.status)}}</div>
+            </div>
+            <div class="row">
+                <mat-label>Delivery date</mat-label>
+                <div>{{order.deliveryDate| date: 'yyyy-MMM-dd'}}</div>
+            </div>
+        </div>
+       <div class="wrap">
+        <h3>Items</h3>
+        <mat-table [dataSource]="dataSource" >
+            <ng-container matColumnDef="product">
+                <mat-header-cell *matHeaderCellDef>Product </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.product.productName}}</mat-cell>
+
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.product.price}}</mat-cell>
+
+            </ng-container>
+          
+            <ng-container matColumnDef="quantity">
+                <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.quantity}}</mat-cell>
+
+            </ng-container>
+           
+            <ng-container matColumnDef="amount">
+                <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.product.price*element.quantity}}</mat-cell>
+
+            </ng-container>
+            
+            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+    
+        </mat-table>
+       </div>
+    </mat-card-content>
+</mat-card>
+
